@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Initialize Resend lazily to avoid build-time errors if API key is missing
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY environment variable is not set')
+  }
+  return new Resend(apiKey)
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,12 +22,15 @@ export async function POST(request: NextRequest) {
     }
 
     // Email to ryan.mindigo@gmail.com with the submitted email
+    const resend = getResend()
     await resend.emails.send({
       from: 'Virtvs <onboarding@resend.dev>', // Update this with your verified domain
       to: 'ryan.mindigo@gmail.com',
-      subject: 'New Early Access Signup - Virtvs',
+      subject: size 
+        ? `Early Access Signup - Size Preference Added: ${size} - Virtvs`
+        : 'New Early Access Signup - Virtvs',
       html: `
-        <h2>New Early Access Signup</h2>
+        <h2>${size ? 'Early Access Signup - Size Preference Added' : 'New Early Access Signup'}</h2>
         <p><strong>Email:</strong> ${email}</p>
         ${size ? `<p><strong>Size Preference:</strong> ${size}</p>` : ''}
         <p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>
