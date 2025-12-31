@@ -207,6 +207,15 @@ export default function Home() {
     setIsSizeSaved(true)
   }
 
+  const handleReset = () => {
+    localStorage.removeItem('virtvs_lead')
+    setIsSubmitted(false)
+    setShowSizeQuestion(false)
+    setSelectedSize('')
+    setIsSizeSaved(false)
+    setEmail('')
+  }
+
   const scrollToForm = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
     e.preventDefault()
     e.stopPropagation()
@@ -506,6 +515,17 @@ export default function Home() {
                 <p className="text-base text-charcoal/70">Saved. You&apos;re all set.</p>
               </div>
             )}
+
+            {/* Reset button for testing */}
+            <div className="pt-6 border-t border-charcoal/10 mt-8">
+              <button
+                type="button"
+                onClick={handleReset}
+                className="text-xs text-charcoal/50 hover:text-charcoal underline"
+              >
+                Reset form (for testing)
+              </button>
+            </div>
           </div>
         )}
       </section>
