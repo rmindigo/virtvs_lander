@@ -164,6 +164,11 @@ export default function Home() {
         console.log('signup_submit', { email })
       }
 
+      // Track Plausible event for successful email submit
+      if (typeof window !== 'undefined' && window.plausible) {
+        window.plausible('email_submit')
+      }
+
       // Set success state - this will trigger the UI to show the confirmation
       console.log('Setting success state')
       setIsSubmitted(true)
@@ -216,9 +221,14 @@ export default function Home() {
     setEmail('')
   }
 
-  const scrollToForm = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+  const scrollToForm = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, source: 'header' | 'hero' = 'hero') => {
     e.preventDefault()
     e.stopPropagation()
+    
+    // Track Plausible event
+    if (typeof window !== 'undefined' && window.plausible) {
+      window.plausible(source === 'header' ? 'cta_header' : 'cta_hero')
+    }
     
     console.log('scrollToForm called')
     const element = document.getElementById('early-access')
@@ -239,6 +249,11 @@ export default function Home() {
   const scrollToDetails = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     e.stopPropagation()
+    
+    // Track Plausible event
+    if (typeof window !== 'undefined' && window.plausible) {
+      window.plausible('details_click')
+    }
     
     const element = document.getElementById('details')
     if (element) {
@@ -265,7 +280,7 @@ export default function Home() {
           <div className="text-lg font-serif tracking-wide">VIRTVS</div>
           <a
             href="#early-access"
-            onClick={scrollToForm}
+            onClick={(e) => scrollToForm(e, 'header')}
             className="inline-block text-sm tracking-wide uppercase border border-charcoal px-8 py-3 hover:bg-charcoal hover:text-background transition-colors cursor-pointer"
             aria-label="Request Early Access"
           >
@@ -299,7 +314,7 @@ export default function Home() {
             </div>
             <a
               href="#early-access"
-              onClick={scrollToForm}
+              onClick={(e) => scrollToForm(e, 'hero')}
               className="inline-block mt-8 text-sm tracking-wide uppercase border border-charcoal px-8 py-3 hover:bg-charcoal hover:text-background transition-colors cursor-pointer"
               aria-label="Request Early Access"
             >
@@ -367,7 +382,13 @@ export default function Home() {
           <button
             ref={storyLinkRef}
             type="button"
-            onClick={() => setIsStoryOpen(true)}
+            onClick={() => {
+              // Track Plausible event
+              if (typeof window !== 'undefined' && window.plausible) {
+                window.plausible('story_open')
+              }
+              setIsStoryOpen(true)
+            }}
             className="inline-flex items-center text-sm text-charcoal/60 hover:text-charcoal underline underline-offset-4"
             aria-haspopup="dialog"
             aria-controls="story-modal"
