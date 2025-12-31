@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     // Email to ryan.mindigo@gmail.com with the submitted email
     const resend = getResend()
     await resend.emails.send({
-      from: 'Virtvs <onboarding@resend.dev>', // Update this with your verified domain
+      from: 'Virtvs <noreply@virtvs.co>', // Using verified domain
       to: 'ryan.mindigo@gmail.com',
       subject: size 
         ? `Early Access Signup - Size Preference Added: ${size} - Virtvs`
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     // Thank you email to the submitted email address
     await resend.emails.send({
-      from: 'Virtvs <onboarding@resend.dev>', // Update this with your verified domain
+      from: 'Virtvs <noreply@virtvs.co>', // Using verified domain
       to: email,
       subject: 'Thank You - You\'re on the Virtvs Early Access List',
       html: `
