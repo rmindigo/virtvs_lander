@@ -594,20 +594,24 @@ export default function Home() {
             </div>
 
             <div className="px-8 py-8">
-              <div id="story-desc" className="text-base leading-7 text-charcoal/80 space-y-4">
-                <p>The Twelve Trials were endured.</p>
-
+              <div id="story-desc" className="text-base leading-7 text-charcoal/80 space-y-5 max-w-prose">
                 <p>
-                  The first was the Nemean Lion—a trial that demanded patience, restraint, and resolve.
-                </p>
-
-                <p>
-                  The numeral records the trials.
+                  The Nemean Lion was the first of Hercules&apos; twelve labors.
                   <br />
-                  The lion marks the beginning.
+                  It symbolizes the beginning of every worthy struggle: the first test of strength, discipline, and resolve.
                 </p>
 
-                <p>Fortitvdo is strength forged in trial.</p>
+                <p>
+                  The XII represents the full twelve labors.
+                  <br />
+                  The lion marks the first.
+                </p>
+
+                <p>
+                  Fortitvdo is not comfort.
+                  <br />
+                  It is strength forged in trial.
+                </p>
               </div>
 
               {/* Optional: a subtle divider line for finish */}
