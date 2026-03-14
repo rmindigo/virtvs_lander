@@ -306,11 +306,11 @@ export default function Home() {
               FORTITVDO
             </h1>
             <p className="text-xl sm:text-2xl font-serif italic text-charcoal/80 mt-2">
-              Endurance. Resolve. Atonement.
+              Strength forged in trial.
             </p>
             <div className="space-y-2 text-base sm:text-lg text-charcoal/70 leading-relaxed">
               <p>The first Virtvs drop.</p>
-              <p>Heavyweight charcoal hoodie. Roman virtue.</p>
+              <p>A heavyweight charcoal hoodie produced in a limited run of 75.</p>
             </div>
             <a
               href="#early-access"
@@ -393,7 +393,7 @@ export default function Home() {
             aria-haspopup="dialog"
             aria-controls="story-modal"
           >
-            Meaning behind the symbols →
+            View the symbolism →
           </button>
         </div>
       </section>
@@ -432,7 +432,7 @@ export default function Home() {
           <p>Drop I is a heavyweight charcoal hoodie released in a single run of 75 units.</p>
 
           <p>
-            It is made to feel substantial, understated, and lasting — a piece defined by discipline rather than excess.
+            Substantial, understated, and built to last — defined by discipline rather than excess.
           </p>
 
           <p>No restock. No second run.</p>
@@ -445,7 +445,7 @@ export default function Home() {
 
         <div className="max-w-prose space-y-5 text-lg leading-7 text-charcoal/90 mb-8">
           <p>
-            Join early access to be notified before the public release and receive priority access to Drop I.
+            Join early access for notice before the public release and priority access to Drop I.
           </p>
 
           <p>Once all 75 units are claimed, the drop closes.</p>
