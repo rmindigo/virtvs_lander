@@ -341,7 +341,7 @@ export default function Home() {
             ) : (
               <div className="absolute inset-0 flex items-center justify-center p-0">
                 <img
-                  src="/walking-hoodie-fortitvdo.png"
+                  src="/virtvs hero 2.png"
                   alt="Virtvs Fortitvdo hoodie"
                   className="w-full h-full object-contain opacity-[0.85] rounded-md"
                 />
