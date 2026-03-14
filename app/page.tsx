@@ -565,7 +565,7 @@ export default function Home() {
           className="fixed inset-0 z-50 flex items-center justify-center px-6"
           role="dialog"
           aria-modal="true"
-          aria-labelledby="story-title"
+          aria-label="Product story"
           aria-describedby="story-desc"
           id="story-modal"
         >
@@ -579,17 +579,15 @@ export default function Home() {
 
           {/* Modal panel */}
           <div className="relative w-full max-w-2xl bg-background border border-charcoal/10 shadow-sm rounded-md overflow-hidden">
-            <div className="flex items-start justify-between px-8 py-6 border-b border-charcoal/10">
-              <h3 id="story-title" className="text-xl font-serif">
-                The First Trial
-              </h3>
+            <div className="flex justify-end px-6 pt-4 pb-0">
               <button
                 ref={closeBtnRef}
                 type="button"
                 onClick={() => setIsStoryOpen(false)}
-                className="ml-6 inline-flex items-center justify-center border border-charcoal px-3 py-2 text-xs tracking-wide uppercase hover:bg-charcoal hover:text-background transition"
+                className="inline-flex items-center justify-center w-8 h-8 text-charcoal/50 hover:text-charcoal text-xl leading-none transition"
+                aria-label="Close"
               >
-                Close
+                ×
               </button>
             </div>
 
