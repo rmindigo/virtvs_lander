@@ -426,35 +426,30 @@ export default function Home() {
       <section className="max-w-3xl mx-auto px-6 py-24 text-left">
         <h2 className="text-3xl font-serif mb-8">The First Drop</h2>
 
-        <p className="text-lg mb-4">
-          Fortitvdo is strength forged in trial.
-        </p>
+        <div className="max-w-prose space-y-5 text-lg leading-7 text-charcoal/90">
+          <p>Fortitvdo means strength forged in trial.</p>
 
-        <p className="text-lg mb-4">
-          Earned through endurance. Carried with resolve.
-        </p>
+          <p>Drop I is a heavyweight charcoal hoodie released in a single run of 75 units.</p>
 
-        <p className="text-lg mb-6">
-          The first Virtvs drop is a heavyweight charcoal hoodie,
-          produced in a single limited run of 75 units.
-        </p>
+          <p>
+            It is made to feel substantial, understated, and lasting — a piece defined by discipline rather than excess.
+          </p>
 
-        <p className="text-lg mb-2">Designed with restraint.</p>
-        <p className="text-lg mb-2">Built for permanence.</p>
+          <p>No restock. No second run.</p>
+        </div>
       </section>
 
       {/* Early Access Section */}
       <section id="early-access" className="max-w-3xl mx-auto px-6 pb-32 text-left" style={{ scrollMarginTop: '0' }}>
         <h2 className="text-3xl font-serif mb-6">Early Access</h2>
 
-        <p className="text-lg mb-4">
-          Early access ensures you&apos;re notified before the public release
-          and given priority access to Drop I.
-        </p>
+        <div className="max-w-prose space-y-5 text-lg leading-7 text-charcoal/90 mb-8">
+          <p>
+            Join early access to be notified before the public release and receive priority access to Drop I.
+          </p>
 
-        <p className="text-lg mb-8">
-          Once the 75 units are gone, the drop is closed.
-        </p>
+          <p>Once all 75 units are claimed, the drop closes.</p>
+        </div>
 
         {!isSubmitted ? (
           <form 
