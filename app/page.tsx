@@ -330,7 +330,7 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div className="relative w-full aspect-square lg:aspect-auto lg:h-[600px] animate-fade-in-delay bg-background rounded-lg overflow-hidden">
+          <div className="relative w-full aspect-square lg:aspect-auto lg:h-[600px] animate-fade-in-delay bg-background rounded-xl overflow-hidden">
             {usePlaceholders ? (
               <svg width="100%" height="100%" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                 <rect width="800" height="800" fill="#FAFAFA"/>
@@ -343,7 +343,7 @@ export default function Home() {
                 <img
                   src="/virtvs hero 2.png"
                   alt="Virtvs Fortitvdo hoodie"
-                  className="w-full h-full object-contain opacity-[0.85] rounded-lg"
+                  className="w-full h-full object-contain opacity-[0.85] rounded-xl"
                 />
               </div>
             )}
