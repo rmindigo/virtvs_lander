@@ -12,6 +12,9 @@ const cinzel = Cinzel({
 export const metadata: Metadata = {
   title: 'Virtvs — Fortitvdo',
   description: 'Strength earned, not given. The first Virtvs drop.',
+  icons: {
+    icon: '/black-wreath-virtvs.png',
+  },
 }
 
 export default function RootLayout({
