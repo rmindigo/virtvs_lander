@@ -1,14 +1,41 @@
-"use client";
-
-import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-
 /* VIRTVS — Drop I Landing
    React app: hero, brand meaning, drop preview, symbolism (accordion),
    scarcity, signup form (validated), sticky CTA, tweaks panel. */
 
+const { useState, useEffect, useRef, useCallback } = React;
+
+/* ─────────── Tweakable defaults ─────────── */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#6b1e23",
+  "serifChoice": "cinzel",
+  "headline": "adastra",
+  "grain": true,
+  "stickyCta": true
+}/*EDITMODE-END*/;
+
+const HEADLINES = {
+  dropi:     { a: "Drop I",                b: "" },
+  adastra:   { a: "Ad Astra",               b: "Per Aspera." },
+  character: { a: "Character",              b: "embodied." },
+  timeless:  { a: "Timeless",               b: "meaning." },
+  forged:    { a: "Forged.",                b: "Not given." },
+  cloth:     { a: "Heavy is",               b: "the cloth." },
+  worn:      { a: "Strength,",              b: "worn." },
+  labor:     { a: "Built for",              b: "the labor." },
+  cipher:    { a: "Wear the",               b: "cipher." },
+  original:  { a: "Ancient virtue.",        b: "Modern armor." },
+};
+
+const SERIF_MAP = {
+  helvetica: '"Helvetica Neue", "HelveticaNeue", Helvetica, "Inter Tight", Arial, sans-serif',
+  cinzel: '"Cinzel", "Trajan Pro", "Cormorant Garamond", Georgia, serif',
+  cormorant: '"Cormorant Garamond", "EB Garamond", Georgia, serif',
+  garamond: '"EB Garamond", "Cormorant Garamond", Georgia, serif',
+  playfair: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+};
+
 /* ─────────── Wreath logo (real Virtvs mark, color-masked) ─────────── */
-function Wreath({ size = 'sm', style = undefined }: { size?: string; style?: any }) {
+function Wreath({ size = 'sm', style }) {
   return <span className={`wreath wreath-${size}`} style={style} aria-label="Virtvs" role="img" />;
 }
 
@@ -69,10 +96,6 @@ function HatMark() {
   );
 }
 
-const HEADLINES = {
-  adastra: { a: "Ad Astra", b: "Per Aspera." },
-};
-
 /* ─────────── Nav ─────────── */
 function Nav({ onJoin }) {
   return (
@@ -110,16 +133,6 @@ function Hero({ onJoin, headlineKey }) {
 
           <p className="hero-tagline">Timeless meaning. Modern form.</p>
 
-          <div className="mobile-drop-preview" aria-label="Drop I product preview">
-            <div className="mobile-drop-image" aria-hidden="true">
-              <Image src="/hoodie.png" alt="" fill priority unoptimized className="slot-img contain" sizes="(max-width: 900px) 150px" />
-            </div>
-            <div className="mobile-drop-copy">
-              <span>Drop I</span>
-              <b>Hercules hoodie + black corduroy hat</b>
-            </div>
-          </div>
-
           <p className="lede">
             Virtvs is a limited streetwear brand built on Roman virtue, myth, and modern
             discipline. Drop I begins with the Hercules <em>FORTITVDO</em> hoodie and the
@@ -146,7 +159,14 @@ function Hero({ onJoin, headlineKey }) {
         <aside className="hero-product" aria-label="Drop I product preview">
           <div className="hero-product-frame">
             <div className="product-glow" />
-            <Image src="/hoodie.png" alt="Hercules FORTITVDO hoodie" fill priority unoptimized className="slot-img contain" sizes="(max-width: 900px) 100vw, 50vw" />
+            <image-slot
+              shape="rect"
+              id="hero-hoodie"
+              src="assets/fortitvdo-hoodie.png"
+              fit="contain"
+              placeholder="FORTITVDO hoodie — hero render"
+              style={{position:'absolute', inset:0, width:'100%', height:'100%'}}
+            ></image-slot>
             <div className="hero-product-overlay">
               <div className="top">
                 <div>
@@ -263,7 +283,14 @@ function Drop({ onJoin }) {
           {/* HOODIE */}
           <article className="product">
             <div className="product-frame">
-              <Image src="/drop-i/fortitvdo-hoodie.png" alt="Hercules FORTITVDO hoodie" fill unoptimized className="slot-img contain" sizes="(max-width: 900px) 100vw, 56vw" />
+              <image-slot
+                shape="rect"
+                id="product-hoodie"
+                src="assets/fortitvdo-hoodie.png"
+                fit="contain"
+                placeholder="FORTITVDO hoodie — front or back graphic"
+                style={{position:'absolute', inset:0, width:'100%', height:'100%'}}
+              ></image-slot>
               <div className="roman-mark">XII</div>
             </div>
             <div className="product-meta">
@@ -289,7 +316,14 @@ function Drop({ onJoin }) {
           {/* HAT */}
           <article className="product">
             <div className="product-frame is-cap">
-              <Image src="/drop-i/virtvs-cap.png" alt="Virtvs black corduroy hat" fill unoptimized className="slot-img" sizes="(max-width: 900px) 100vw, 44vw" />
+              <image-slot
+                shape="rect"
+                id="product-hat"
+                src="assets/virtvs-cap.png"
+                fit="cover"
+                placeholder="Virtvs corduroy cap — straight-on or angled"
+                style={{position:'absolute', inset:0, width:'100%', height:'100%'}}
+              ></image-slot>
             </div>
             <div className="product-meta">
               <div>
@@ -323,13 +357,9 @@ function Drop({ onJoin }) {
           </div>
 
           <figure className="drop-details-frame">
-            <Image
-              src="/drop-i/fortitvdo-details.png"
+            <img
+              src="assets/fortitvdo-details.png"
               alt="FORTITVDO hoodie construction details — Nemean Lion back graphic, sleeve XII numeral, FORTITVDO wordmark embroidery"
-              width={1892}
-              height={1260}
-              sizes="100vw"
-              unoptimized
             />
           </figure>
 
@@ -369,13 +399,9 @@ function Drop({ onJoin }) {
           </div>
 
           <figure className="drop-details-frame">
-            <Image
-              src="/drop-i/virtvs-cap-details.png"
+            <img
+              src="assets/virtvs-cap-details.png"
               alt="Virtvs corduroy cap construction details — wreath V front embroidery, interior Ad Astra Per Aspera taping, antique brass rear adjuster"
-              width={1892}
-              height={1264}
-              sizes="100vw"
-              unoptimized
             />
           </figure>
 
@@ -505,14 +531,14 @@ function Signup({ formRef }) {
   const [phone, setPhone] = useState("");
   const [prefs, setPrefs] = useState(["both"]); // single-select default
   const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<any>({});
+  const [errors, setErrors] = useState({});
   const [position, setPosition] = useState(null);
 
   const togglePref = (p) => setPrefs([p]);
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    const next: any = {};
+    const next = {};
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       next.email = "Enter a valid email.";
     }
@@ -520,31 +546,10 @@ function Signup({ formRef }) {
       next.phone = "Enter a valid number, or leave empty.";
     }
     setErrors(next);
-    if (Object.keys(next).length > 0) {
-      setTimeout(() => {
-        document.querySelector('.field.invalid input')?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-      }, 0);
-      return;
-    }
-
-    try {
-      const res = await fetch('/api/drop-list', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, phone, preference: prefs[0] }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setErrors({ email: data.error || 'Unable to join right now.' });
-        return;
-      }
-      setPosition(data.position);
+    if (Object.keys(next).length === 0) {
+      // fake position 100–999
+      setPosition(100 + Math.floor(Math.random() * 900));
       setSubmitted(true);
-    } catch {
-      setErrors({ email: 'Unable to join right now. Please try again.' });
     }
   };
 
@@ -625,7 +630,7 @@ function Signup({ formRef }) {
             </div>
 
             <div className="consent">
-              By joining, you agree to receive email updates from Virtvs. If you provide your phone number, you also agree to receive occasional SMS launch updates. Message/data rates may apply. Reply STOP to opt out. <a href="/privacy">Privacy</a>
+              By joining, you agree to receive Drop I updates from Virtvs. Unsubscribe anytime. <a href="#">Privacy</a>
             </div>
 
             <button type="submit" className="btn btn-accent submit">
@@ -636,7 +641,7 @@ function Signup({ formRef }) {
           <div className="success">
             <div className="position">
               <Wreath size="sm" style={{width:18, height:18}} />
-              {position ? `You're on the list · Position №${position}` : "You're on the list"}
+              You're on the list · Position №{position}
             </div>
             <h3>Watch for Drop I updates.</h3>
             <p className="lede" style={{margin:0}}>
@@ -664,7 +669,7 @@ function Footer() {
       <div className="foot-brand" style={{display:'flex', alignItems:'center', gap: 12}}>
         <Wreath size="sm" /> VIRTVS
       </div>
-      <div className="micro">© MMXXVI · Ad astra per aspera · <a href="/privacy">Privacy</a> · <a href="mailto:ryan.mindigo@gmail.com">Contact</a></div>
+      <div className="micro">© MMXXVI · Ad astra per aspera</div>
       <div className="micro">VIRTVS · FORTITVDO · DISCIPLINA · AVCTORITAS · GRAVITAS</div>
     </footer>
   );
@@ -682,26 +687,41 @@ function StickyCTA({ onJoin, visible }) {
 
 /* ─────────── Root ─────────── */
 function App() {
-  const formRef = useRef<HTMLElement | null>(null);
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const formRef = useRef(null);
   const [stickyVisible, setStickyVisible] = useState(false);
 
+  // Apply tweaks to CSS vars
   useEffect(() => {
-    document.documentElement.setAttribute('data-serif', 'cinzel');
-  }, []);
+    const r = document.documentElement;
+    r.style.setProperty('--accent-on', t.accent);
+    r.style.setProperty('--serif', SERIF_MAP[t.serifChoice] || SERIF_MAP.cinzel);
+    r.setAttribute('data-serif', t.serifChoice);
+    document.body.style.setProperty('--grain-opacity', t.grain ? '0.05' : '0');
+  }, [t.accent, t.serifChoice, t.grain]);
 
+  // Toggle grain visibility via class
   useEffect(() => {
+    document.body.classList.toggle('no-grain', !t.grain);
+  }, [t.grain]);
+
+  // Show sticky CTA after scrolling past hero
+  useEffect(() => {
+    if (!t.stickyCta) { setStickyVisible(false); return; }
     const onScroll = () => {
       const y = window.scrollY;
       const formTop = formRef.current?.getBoundingClientRect().top ?? 9999;
       const vh = window.innerHeight;
+      // Show after hero, hide when near signup form
       setStickyVisible(y > vh * 0.8 && formTop > vh * 0.6);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [t.stickyCta]);
 
   const joinList = useCallback(() => {
+    formRef.current?.scrollTo?.({ top: 0 });
     const el = document.getElementById('signup');
     if (el) {
       const y = el.getBoundingClientRect().top + window.scrollY - 40;
@@ -712,7 +732,7 @@ function App() {
   return (
     <>
       <Nav onJoin={joinList} />
-      <Hero onJoin={joinList} headlineKey="adastra" />
+      <Hero onJoin={joinList} headlineKey={t.headline} />
       <Drop onJoin={joinList} />
       <Symbolism />
       <Scarcity />
@@ -720,8 +740,54 @@ function App() {
       <Codex />
       <Footer />
       <StickyCTA onJoin={joinList} visible={stickyVisible} />
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Accent" />
+        <TweakColor
+          label="Accent color"
+          value={t.accent}
+          options={['#6b1e23', '#8a7449', '#3a4f3a', '#7a7a7a']}
+          onChange={(v) => setTweak('accent', v)}
+        />
+        <TweakSection label="Hero headline" />
+        <TweakSelect
+          label="Headline"
+          value={t.headline}
+          options={[
+            { value: 'dropi',     label: 'Drop I' },
+            { value: 'adastra',   label: 'Ad Astra Per Aspera.' },
+            { value: 'character', label: 'Character embodied.' },
+            { value: 'timeless',  label: 'Timeless meaning.' },
+            { value: 'forged',    label: 'Forged. Not given.' },
+            { value: 'cloth',     label: 'Heavy is the cloth.' },
+            { value: 'worn',      label: 'Strength, worn.' },
+            { value: 'labor',     label: 'Built for the labor.' },
+            { value: 'cipher',    label: 'Wear the cipher.' },
+            { value: 'original',  label: 'Ancient virtue. Modern armor.' },
+          ]}
+          onChange={(v) => setTweak('headline', v)}
+        />
+        <TweakSection label="Typography" />
+        <TweakRadio
+          label="Display serif"
+          value={t.serifChoice}
+          options={['helvetica', 'cinzel', 'cormorant', 'garamond', 'playfair']}
+          onChange={(v) => setTweak('serifChoice', v)}
+        />
+        <TweakSection label="Atmosphere" />
+        <TweakToggle
+          label="Film grain"
+          value={t.grain}
+          onChange={(v) => setTweak('grain', v)}
+        />
+        <TweakToggle
+          label="Sticky CTA"
+          value={t.stickyCta}
+          onChange={(v) => setTweak('stickyCta', v)}
+        />
+      </TweaksPanel>
     </>
   );
 }
 
-export default App;
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);

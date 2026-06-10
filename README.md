@@ -1,62 +1,42 @@
-# Virtvs Landing Page
+VIRTVS Drop I landing page
 
-A minimal, premium landing page for the first Virtvs drop, built with Next.js, TypeScript, and Tailwind CSS.
+Production rebuild from the design handoff zip.
 
-## Setup
+Stack:
+- Next.js App Router
+- TypeScript
+- CSS ported from the handoff source styles
+- next/image for product imagery
+- POST /api/drop-list signup endpoint with server-side validation and basic in-memory rate limiting
 
-1. Install dependencies:
-```bash
+Run locally:
+
 npm install
-```
-
-2. Add your product image:
-   - Place `hoodie.png` in the `/public` directory
-   - Optionally add `hoodie-front.png`, `hoodie-back.png`, and `hoodie-sleeve.png` for the gallery
-
-3. Run the development server:
-```bash
 npm run dev
-```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open:
 
-## Features
+http://127.0.0.1:8000
 
-- **Email Signup Form**: Sends email notifications and thank you emails via Resend
-- **Size Preference**: Optional size selection after email submission
-- **Responsive Design**: Mobile-first, works on all devices
-- **Analytics**: Console logging for page views, signups, and size selections (toggle via `ENABLE_ANALYTICS_LOGS`)
+Important files:
 
-## Email Setup
+- app/page.tsx
+  Client landing page composed from the handoff sections. Design-tool scaffolding was removed.
 
-The form sends emails using Resend. To set up:
+- app/globals.css
+  Ported visual system from design_handoff_virtvs_landing/source/styles.css.
 
-1. **Get a Resend API Key**:
-   - Sign up at [https://resend.com](https://resend.com)
-   - Go to API Keys and create a new key
+- app/api/drop-list/route.ts
+  Signup endpoint. Currently stores signups in memory and returns a placeholder position.
+  TODO: connect Beehiiv/Klaviyo/ConvertKit and optionally Resend confirmation email.
 
-2. **Create `.env.local` file** in the root directory:
-   ```
-   RESEND_API_KEY=re_your_api_key_here
-   ```
+- public/drop-i/
+  Product images from the handoff. next/image will serve optimized WebP/AVIF variants at runtime.
 
-3. **Update the sender email** in `app/api/submit-lead/route.ts`:
-   - Replace `onboarding@resend.dev` with your verified domain email
-   - You can verify a domain in your Resend dashboard
+- public/wreath-logo.svg
+  Local copy of the wreath mark so the page does not hotlink virtvs.co.
 
-4. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+Original handoff:
 
-When a form is submitted:
-- An email is sent to `ryan.mindigo@gmail.com` with the submitted email address
-- A thank you email is sent to the submitted email address
-
-## Build for Production
-
-```bash
-npm run build
-npm start
-```
-
+- design_handoff_virtvs_landing/
+- Virtvs Homepage.zip
